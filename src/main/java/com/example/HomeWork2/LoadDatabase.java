@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Calendar;
 
@@ -26,7 +27,7 @@ public class LoadDatabase {
                     "Gosteva 1",
                     FEMALE,
                     LocalDate.of(1984, Calendar.FEBRUARY + 1, 11),
-                    "+371 88888888",
+                    "+371 88 888 888",
                     "anna.gosteva@gmail.com"
                     )));
             log.info("Preloading" + repository.save(new Person(
@@ -34,7 +35,7 @@ public class LoadDatabase {
                     "Gostevs 1",
                     MALE,
                     LocalDate.of(1983, Calendar.JUNE + 1,29),
-                    "+371 99999999",
+                    "+371 99 999 999",
                     "vadims.gostevs@gmail.com"
             )));
         };

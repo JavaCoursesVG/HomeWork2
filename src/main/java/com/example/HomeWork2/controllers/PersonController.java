@@ -9,6 +9,7 @@ import com.example.HomeWork2.repository.PersonRepository;
 import jakarta.annotation.Nullable;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -21,6 +22,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
+@Validated
 public class PersonController {
     private final PersonRepository repository;
     private final PersonModelAssembler assembler;
@@ -58,7 +60,7 @@ public class PersonController {
     }
 
     @PutMapping("/persons/{id}")
-    Person replacePerson(@RequestBody Person newPerson, @PathVariable Long id) {
+    Person replacePerson(@Validated @RequestBody Person newPerson, @PathVariable Long id) {
 
         return repository.findById(id)
                 .map(person -> {
@@ -82,10 +84,7 @@ public class PersonController {
                     }
                     return repository.save(person);
                 })
-                .orElseGet(() -> {
-                    newPerson.setId(id);
-                    return repository.save(newPerson);
-                });
+                .orElseThrow(() -> new PersonNotFoundException(id));
     }
 
     @DeleteMapping("/persons/{id}")
