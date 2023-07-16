@@ -1,5 +1,6 @@
-package com.example.HomeWork2;
+package com.example.HomeWork2.entity;
 
+import com.example.HomeWork2.entity.enums.Gender;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

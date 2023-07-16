@@ -1,5 +1,7 @@
 package com.example.HomeWork2;
 
+import com.example.HomeWork2.entity.Person;
+import com.example.HomeWork2.repository.PersonRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -9,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import java.time.LocalDate;
 import java.util.Calendar;
 
-import static com.example.HomeWork2.Gender.*;
+import static com.example.HomeWork2.entity.enums.Gender.*;
 
 @Configuration
 public class LoadDatabase {

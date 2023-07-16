@@ -1,5 +1,7 @@
 package com.example.HomeWork2;
 
+import com.example.HomeWork2.controllers.PersonController;
+import com.example.HomeWork2.entity.Person;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.lang.NonNull;

@@ -1,5 +1,11 @@
-package com.example.HomeWork2;
+package com.example.HomeWork2.controllers;
 
+import com.example.HomeWork2.DateValidator;
+import com.example.HomeWork2.DateValidatorUsingDateTimeFormatter;
+import com.example.HomeWork2.PersonModelAssembler;
+import com.example.HomeWork2.PersonNotFoundException;
+import com.example.HomeWork2.entity.Person;
+import com.example.HomeWork2.repository.PersonRepository;
 import jakarta.annotation.Nullable;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -30,7 +36,7 @@ public class PersonController {
     DateValidator validator = new DateValidatorUsingDateTimeFormatter(dateFormatter);
 
     @GetMapping("/persons")
-    CollectionModel<EntityModel<Person>> getAll() {
+    public CollectionModel<EntityModel<Person>> getAll() {
 
         List<EntityModel<Person>> persons = repository.findAll().stream()
                 .map(assembler::toModel)
@@ -43,7 +49,7 @@ public class PersonController {
     Person newPerson ( @RequestBody Person newPerson) {return repository.save(newPerson);}
 
     @GetMapping("/persons/{id}")
-    EntityModel<Person> one(@PathVariable Long id) {
+    public EntityModel<Person> one(@PathVariable Long id) {
 
         Person person = repository.findById(id)
                 .orElseThrow(() -> new PersonNotFoundException(id));
