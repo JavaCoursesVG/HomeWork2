@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long> {
-    List<Person> findByFirstNameOrLastName(String firstName, String lastName);
+    List<Person> findByFirstnameOrLastname(String firstname, String lastname);
     List<Person> findByDateOfBirth(LocalDate dateOfBirth);
 
 }

@@ -1,6 +1,6 @@
 package com.example.HomeWork2.controllers;
 
-import com.example.HomeWork2.DateValidator;
+import com.example.HomeWork2.validators.DateValidator;
 import com.example.HomeWork2.DateValidatorUsingDateTimeFormatter;
 import com.example.HomeWork2.PersonModelAssembler;
 import com.example.HomeWork2.PersonNotFoundException;
@@ -22,7 +22,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-@Validated
 public class PersonController {
     private final PersonRepository repository;
     private final PersonModelAssembler assembler;
@@ -37,7 +36,7 @@ public class PersonController {
             .withResolverStyle(ResolverStyle.STRICT);
     DateValidator validator = new DateValidatorUsingDateTimeFormatter(dateFormatter);
 
-    @GetMapping("/persons")
+    @GetMapping("/persons/")
     public CollectionModel<EntityModel<Person>> getAll() {
 
         List<EntityModel<Person>> persons = repository.findAll().stream()
@@ -47,7 +46,7 @@ public class PersonController {
         return CollectionModel.of(persons, linkTo(methodOn(PersonController.class).getAll()).withSelfRel());
     }
 
-    @PostMapping("/persons")
+    @PostMapping("/persons/")
     Person newPerson ( @RequestBody Person newPerson) {return repository.save(newPerson);}
 
     @GetMapping("/persons/{id}")
@@ -64,11 +63,11 @@ public class PersonController {
 
         return repository.findById(id)
                 .map(person -> {
-                    if (newPerson.getFirstName() != null) {
-                        person.setFirstName(newPerson.getFirstName());
+                    if (newPerson.getFirstname() != null) {
+                        person.setFirstname(newPerson.getFirstname()); // if we receive object with "null" fields validation prevent to change them
                     }
-                    if (newPerson.getLastName() != null) {
-                        person.setLastName(newPerson.getLastName());
+                    if (newPerson.getLastname() != null) {
+                        person.setLastname(newPerson.getLastname());
                     }
                     if (newPerson.getGender() != null) {
                         person.setGender(newPerson.getGender());
@@ -98,9 +97,9 @@ public class PersonController {
     }
 
     @GetMapping("/persons/findByName")
-    CollectionModel<EntityModel<Person>> getPersonsByFirstName(@Nullable @RequestParam String firstName, String lastName) throws PersonNotFoundException {
+    CollectionModel<EntityModel<Person>> getPersonsByName(@Nullable @RequestParam String firstname, String lastname) throws PersonNotFoundException {
 
-        List<EntityModel<Person>> response = repository.findByFirstNameOrLastName(firstName, lastName)
+        List<EntityModel<Person>> response = repository.findByFirstnameOrLastname(firstname, lastname)
                 .stream()
                 .map(assembler::toModel)
                 .collect(Collectors.toList());

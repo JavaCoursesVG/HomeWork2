@@ -4,17 +4,8 @@ import com.example.HomeWork2.entity.enums.Gender;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.boot.convert.DataSizeUnit;
-import org.springframework.boot.convert.DurationFormat;
-import org.springframework.boot.convert.PeriodFormat;
-import org.springframework.format.annotation.NumberFormat;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
 
 @Data
 @Entity
@@ -23,9 +14,9 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name="FIRST_NAME", length = 50, nullable = true)
-    private String firstName;
+    private String firstname;
     @Column(name="LAST_NAME", length = 50, nullable = true)
-    private String lastName;
+    private String lastname;
     @Enumerated(EnumType.STRING)
     private Gender gender;
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -37,10 +28,10 @@ public class Person {
     private @Column (nullable = false) String email;
     public Person() {}
 
-    public Person(String firstName, String lastName, Gender gender, LocalDate dateOfBirth, String phoneNumber, String email) {
+    public Person(String firstname, String lastname, Gender gender, LocalDate dateOfBirth, String phoneNumber, String email) {
 
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
         this.phoneNumber = phoneNumber;
